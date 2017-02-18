@@ -9,14 +9,29 @@ public class AnimationHelper : MonoBehaviour {
 	protected	virtual	void	Start() {
 		mAnimator = GetComponent<Animator> ();
 		mRB = GetComponent<Rigidbody2D> ();
-//		Invoke ("TestTrigger",Random.Range(1f,5f));
 	}
 
-	void	TestTrigger() {
+	public	virtual	void	Kill() {		//Usually called from animation
+		Destroy (gameObject);
+	}
+
+	public	virtual	void	Explode() {		//Trigger default Explode Animation
 		mAnimator.SetTrigger ("Explode");
 	}
 
-	public	void	Kill() {
-		Destroy (gameObject);
+	void	OnTriggerEnter2D(Collider2D vOther) {	//Call correct trigger based on tag hit
+		if (vOther.gameObject.tag == "Enemy") {
+			OnHitEnemy(vOther.gameObject.GetComponent<InvaderController> ());
+		} else 	if (vOther.gameObject.tag == "Player") {
+			OnHitPlayer(vOther.gameObject.GetComponent<TankController> ());
+		} else 	if (vOther.gameObject.tag == "Shell") {
+			OnHitShell(vOther.gameObject.GetComponent<ShellController> ());
+		}
+	}
+	protected virtual void OnHitEnemy(InvaderController vAH) {
+	}
+	protected virtual void OnHitPlayer(TankController vAH) {
+	}
+	protected virtual void OnHitShell(ShellController vAH) {
 	}
 }

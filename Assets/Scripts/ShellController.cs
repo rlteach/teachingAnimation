@@ -10,10 +10,7 @@ public class ShellController : AnimationHelper {
 		mAnimator.SetInteger ("Direction",1);
 	}
 
-	void	OnTriggerEnter2D(Collider2D vOther) {
-		if (vOther.gameObject.tag == "Enemy") {
-			InvaderController tSC = vOther.gameObject.GetComponent<InvaderController> ();
-			tSC.Explode ();
-		}
+	protected override void OnHitEnemy(InvaderController vAH) {
+		vAH.Explode ();		//Tell Enemy to explode
 	}
 }

@@ -7,8 +7,4 @@ public class InvaderController : AnimationHelper {
 	protected	override	void Start () {
 		base.Start ();		//Ensure Base method is called
 	}
-
-	public	void	Explode() {
-		mAnimator.SetTrigger ("Explode");
-	}
 }
