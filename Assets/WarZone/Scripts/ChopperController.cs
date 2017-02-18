@@ -17,26 +17,25 @@ public class ChopperController : MonoBehaviour {
 
 	void FixedUpdate () {
 		float	tThrust = InputController.GetInput (InputController.Directions.Fire);
-		float	tYaw = InputController.GetInput (InputController.Directions.MoveX);
+		float	tRoll = InputController.GetInput (InputController.Directions.MoveX);
 		float	tPitch = InputController.GetInput (InputController.Directions.MoveY);
-        if (tThrust > 0f) {
-            mANI.SetBool("EngineOn", true);
-        } else {
-            //mANI.SetBool("EngineOn", false);
-        }
+        mANI.SetBool("EngineOn", (tThrust > 0f));
         Vector3	tForce = Vector3.zero;
-		tForce.y = -Physics.gravity.y * 1.2f  ;
-		if (transform.position.y > 10f) {
-			Vector3	tVelocity = mRB.velocity;	//Clamp Height
-			tVelocity.y=0f;
-			mRB.velocity = tVelocity;
-		}
-		tForce.x = -tPitch;
-		tForce.z = tYaw;
+        tForce.y = -Physics.gravity.y * mANI.GetFloat("EngineSpeed") * tThrust;
+        mANI.SetInteger("Pitch", Mathf.RoundToInt(tPitch));
+        mANI.SetInteger("Roll", Mathf.RoundToInt(tRoll));
+        tForce.z = tPitch*3f;
+		tForce.x = tRoll*3f;
 		Debug.Log (tForce);
-		//mRB.AddForce (tForce);		//Engine 1.5x G and depends on Rotor speed
+		mRB.AddForce (tForce,ForceMode.Force);		//Engine 1.5x G and depends on Rotor speed
 	}
 
-	void	LateUpdate () {
+	void	LateUpdate () {     //Stop it goign too high
+        Vector3 tPosition = transform.position;
+        Vector3 tVelocity = mRB.velocity;
+        if (tPosition.y>10f && tVelocity.y>0f) {
+            tVelocity.y = 0;
+            mRB.velocity = tVelocity;
+        }
 	}
 }
