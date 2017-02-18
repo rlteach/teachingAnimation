@@ -16,14 +16,14 @@ public class ChopperController : MonoBehaviour {
 
 
 	void FixedUpdate () {
-		float	tThrust = InputController.GetInput (InputController.Directions.Fire);
+		float	tThrust = InputController.GetInput (InputController.Directions.Thrust);
 		float	tRoll = InputController.GetInput (InputController.Directions.MoveX);
 		float	tPitch = InputController.GetInput (InputController.Directions.MoveY);
         mANI.SetBool("EngineOn", (tThrust > 0f));
         Vector3	tForce = Vector3.zero;
         tForce.y = -Physics.gravity.y * mANI.GetFloat("EngineSpeed") * tThrust;
         mANI.SetInteger("Pitch", Mathf.RoundToInt(tPitch));
-        mANI.SetInteger("Roll", Mathf.RoundToInt(tRoll));
+        mANI.SetInteger("Roll", Mathf.RoundToInt(tRoll ));
         tForce.z = tPitch*3f;
 		tForce.x = tRoll*3f;
 		Debug.Log (tForce);
