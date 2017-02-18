@@ -152,6 +152,13 @@ public class InputController : Singleton {
 			tUsingJoyStick = true;
 		}
 
+		Vector2	tThrust = ReadJoyStick (2);
+		if (tThrust.sqrMagnitude > Mathf.Epsilon) {
+			SetInput (Directions.Thrust, tThrust.y);
+			SetInput (Directions.Brake, tThrust.x);
+			tUsingJoyStick = true;
+		}
+
 		if (!tUsingJoyStick) {
 			if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
 				if (Input.GetKey (KeyCode.UpArrow)) {        //Map control to game input
@@ -179,7 +186,6 @@ public class InputController : Singleton {
 					SetInput (Directions.MoveY, 0f);
 				}
 
-
 				if (Input.GetKey (KeyCode.LeftArrow)) {
 					SetInput (Directions.MoveX, -1.0f);
 				} else if (Input.GetKey (KeyCode.RightArrow)) {
@@ -187,12 +193,17 @@ public class InputController : Singleton {
 				} else {
 					SetInput (Directions.MoveX, 0f);
 				}
+
+				if (Input.GetKey (KeyCode.A)) {        //Map control to game input
+					SetInput (Directions.Thrust, 1.0f);
+				} else if (Input.GetKey (KeyCode.Z)) {
+					SetInput (Directions.Thrust, -1.0f);
+				} else {
+					SetInput (Directions.Thrust, 0f);
+				}
 			}
 		}
 
-		Vector2	tThrust = ReadJoyStick (2);
-		SetInput (Directions.Thrust, tThrust.y);
-		SetInput (Directions.Brake, tThrust.x);
 
 		sDebugText = "";
 		for (int tI = 0; tI < sButtons.Length; tI++) {
@@ -210,7 +221,7 @@ public class InputController : Singleton {
             SetInput(Directions.Zoom, 0f);
         }
 
-		if (Input.GetMouseButton(0) || ReadButton(1)) {
+		if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0) || ReadButton(1)) {
 			SetInput(Directions.Fire, 1.0f);
 		} else {
 			SetInput(Directions.Fire, 0f);

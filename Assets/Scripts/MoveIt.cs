@@ -3,8 +3,11 @@ using System.Collections;
 
 public class MoveIt : StateMachineBehaviour {
 	Vector3	Direction(Animator vAnimator) {
-		Vector3	tDirection = vAnimator.gameObject.transform.rotation * Vector3.up*Time.deltaTime*vAnimator.GetFloat("Speed");
-		return	tDirection;
+		Vector3	tMoveVector = Vector3.zero;
+		int tDirection = vAnimator.GetInteger ("Direction");
+		float	tSpeed = Mathf.Abs (vAnimator.GetFloat ("Speed"));
+		tMoveVector = vAnimator.gameObject.transform.rotation * Vector3.up * Time.deltaTime * tSpeed*tDirection;
+		return	tMoveVector;
 	}
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
