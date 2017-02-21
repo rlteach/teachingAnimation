@@ -95,6 +95,11 @@ Terrain:
   m_PrefabParentObject: {fileID: 218000010376201882, guid: a5bea58624cef484bbd2c96d247d6095,
     type: 2}
   m_PrefabInternal: {fileID: 2079933204}
+--- !u!1 &1377364358 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010618560664, guid: 0b804955f3ef14521aed85ce517c662e,
+    type: 2}
+  m_PrefabInternal: {fileID: 2013329212}
 --- !u!1 &1871394142
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sensitivity: 10
-  Target: {fileID: 0}
+  Target: {fileID: 1377364358}
   Terrain: {fileID: 128414520}
   AutoHeight: 1
 --- !u!1001 &1925580349
