@@ -19,8 +19,9 @@ public class RotateRotor : StateMachineBehaviour {
         float tRotorForce =vAni.GetFloat("RotorForce");
         tRotorSpeed = Mathf.Clamp(tRotorSpeed + tRotorForce, 0f, RotorMaxSpeed);
         vAni.SetFloat("RotorSpeed", tRotorSpeed);
-        vAni.gameObject.transform.Rotate(0, tRotorSpeed * Time.deltaTime, 0);
-        Debug.Log(tRotorSpeed);
+        Quaternion tStep = Quaternion.Euler(0, tRotorSpeed * Time.deltaTime, 0);
+        vAni.gameObject.transform.rotation*= tStep;
+//        Debug.Log(vAni.GetBool("Running").ToString() + ":" +  tRotorSpeed.ToString());
     }
 
 
