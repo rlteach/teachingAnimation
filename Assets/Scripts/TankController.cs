@@ -19,7 +19,7 @@ public class TankController : AnimationHelper {
 	protected	void Update () {
 		int	tDirection = Mathf.RoundToInt (InputController.GetInput (InputController.Directions.MoveY));
 		mAnimator.SetInteger ("Direction",tDirection);
-		Quaternion	tRotation=Quaternion.Euler(0,0,InputController.GetInput (InputController.Directions.MoveX)*360f*Time.deltaTime);
+		Quaternion	tRotation=Quaternion.Euler(0,0,-InputController.GetInput (InputController.Directions.MoveX)*180f*Time.deltaTime);
 		transform.rotation *= tRotation;
 		if (mCoolDown > 0f) {
 			mCoolDown -= Time.deltaTime;

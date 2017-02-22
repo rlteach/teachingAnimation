@@ -3,9 +3,11 @@ using System.Collections;
 
 public class RotateRotor : StateMachineBehaviour {
 
+	AudioSource	mAud;
 
     public float RotorMaxSpeed;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+		mAud = animator.gameObject.GetComponent<AudioSource> ();
         DoRotor(animator);
     }
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -21,8 +23,28 @@ public class RotateRotor : StateMachineBehaviour {
         vAni.SetFloat("RotorSpeed", tRotorSpeed);
         Quaternion tStep = Quaternion.Euler(0, tRotorSpeed * Time.deltaTime, 0);
         vAni.gameObject.transform.rotation*= tStep;
+		PlayRotorAudio (tRotorSpeed);
 //        Debug.Log(vAni.GetBool("Running").ToString() + ":" +  tRotorSpeed.ToString());
     }
+
+	void	PlayRotorAudio(float vRotorSpeed) {
+		if (vRotorSpeed < 100f) {
+			if (vRotorSpeed > 1) {
+				mAud.volume = vRotorSpeed/100f;
+			} else {
+				if (mAud.isPlaying) {
+					mAud.Stop ();
+				}
+			}
+		} else {
+			mAud.volume = 1f;
+			if (!mAud.isPlaying) {
+				mAud.Play ();
+			}
+			mAud.pitch = Mathf.Clamp (2 * vRotorSpeed / RotorMaxSpeed, 0.3f, 2f);
+		}
+
+	}
 
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
