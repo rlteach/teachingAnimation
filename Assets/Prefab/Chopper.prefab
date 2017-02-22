@@ -55,7 +55,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012805507660}
   - 95: {fileID: 95000013867007068}
-  - 114: {fileID: 114000012716445028}
   m_Layer: 0
   m_Name: sm_vertushka_01
   m_TagString: Untagged
@@ -234,18 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe975d413d9c4db08f7447a60ac22b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012716445028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012052973336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea298afda48dc400f9e5912a1fdc8e43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotorSpeed: 0
 --- !u!137 &137000011647179642
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
